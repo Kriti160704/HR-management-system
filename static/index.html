@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TalentSift - Resume Screening</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#ff8a3d;--orange2:#ff6f3c;--pink:#ffffff;--pink-l:#fff5e9;--purple:#fffaf2;--purple-l:#fdf1df;--blue:#3d9bff;--blue-l:#dcecff;--ink:#3b2a4d;--mute:#8a7a99;--white:#fff}
+*{box-sizing:border-box;margin:0}
+body{font-family:Outfit,system-ui,sans-serif;color:var(--ink);min-height:100vh;
+background:radial-gradient(900px 500px at 90% -5%,#ff5fa233 0,transparent 60%),radial-gradient(800px 500px at -5% 105%,#a58bf533 0,transparent 60%),#000;padding:28px}
+.wrap{max-width:1680px;margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;color:#fff;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:14px}
+.logo i{width:50px;height:50px;border-radius:16px;background:#fff;display:grid;place-items:center;font-style:normal;font-size:26px;box-shadow:0 8px 22px #a3185a40}
+h1{font-size:30px;font-weight:700;letter-spacing:-.5px}.sub{opacity:.92;font-size:15px}
+.grid{display:grid;grid-template-columns:380px minmax(0,1fr) 360px;gap:22px;align-items:start}
+@media(max-width:1380px){.grid{grid-template-columns:380px minmax(0,1fr)}#chat{grid-column:1/-1;position:static;height:520px}}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}}
+.card{background:var(--white);border-radius:26px;padding:24px;box-shadow:0 14px 40px #a3185a33}
+.card h2{font-size:19px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+label{font-size:13px;font-weight:500;color:var(--mute);display:block;margin:12px 0 6px}
+input[type=text],textarea{width:100%;border:2px solid var(--purple-l);background:#fbf9ff;border-radius:14px;padding:12px 14px;font:inherit;color:var(--ink);outline:none;transition:.2s}
+input[type=text]:focus,textarea:focus{border-color:var(--purple);background:#fff}
+textarea{min-height:190px;resize:vertical}
+.drop{border:2.5px dashed var(--pink);background:linear-gradient(135deg,#fff5fa,#f6f1ff);border-radius:20px;padding:26px 14px;text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.over{background:var(--pink-l);transform:scale(1.01)}
+.drop b{display:block;font-size:17px;margin:6px 0 2px}.drop small{color:var(--mute)}
+.btn{border:0;border-radius:14px;padding:13px 20px;font:inherit;font-weight:600;cursor:pointer;color:#fff;transition:.2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}.btn:disabled{opacity:.6;cursor:wait}
+.b-main{background:linear-gradient(90deg,var(--purple),var(--pink));width:100%;font-size:17px;margin-top:18px;box-shadow:0 8px 20px #ff5fa255}
+.b-soft{background:var(--purple-l);color:var(--ink);padding:9px 14px;font-size:14px}
+.b-blue{background:var(--blue)}
+.bar{height:10px;background:var(--purple-l);border-radius:9px;overflow:hidden;margin-top:12px;display:none}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));transition:.2s}
+.note{font-size:13px;color:var(--mute);margin-top:8px}.err{color:#d6336c}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border-radius:22px;padding:18px;color:#fff;box-shadow:0 10px 26px #a3185a30}
+.stat b{font-size:34px;display:block;font-weight:700}.stat span{font-size:14px;opacity:.95}
+.s1{background:linear-gradient(135deg,var(--blue),#6cb6ff)}.s2{background:linear-gradient(135deg,var(--pink),#ff8bbd)}
+.s3{background:linear-gradient(135deg,var(--purple),#c3b0ff)}.s4{background:linear-gradient(135deg,#ff9a4d,#ffb26b)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.tools input{max-width:260px;padding:9px 14px}
+.tab{border:0;background:var(--purple-l);color:var(--ink);border-radius:30px;padding:8px 16px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.tab.on{background:var(--purple);color:#fff}
+.tw{max-height:640px;overflow:auto;border-radius:16px;border:2px solid var(--purple-l)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{position:sticky;top:0;background:var(--purple-l);text-align:left;padding:12px;font-weight:600}
+td{padding:11px 12px;border-top:1px solid #f1ecfa;vertical-align:middle}
+tr:hover td{background:#fbf9ff}
+.sc{display:flex;align-items:center;gap:8px;min-width:130px}.sc i{flex:1;height:8px;background:#f0eaff;border-radius:8px;overflow:hidden}
+.sc i u{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--pink));border-radius:8px}
+.chip{display:inline-block;background:var(--blue-l);color:#1f6fcf;border-radius:20px;padding:2px 10px;font-size:12px;margin:2px 3px 2px 0}
+.tag{border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+.yes{background:#d9f5e8;color:#16895a}.no{background:var(--pink-l);color:#c2306f}
+.empty{text-align:center;padding:50px 20px;color:var(--mute)}.empty div{font-size:46px}
+#chat{padding:0;display:flex;flex-direction:column;overflow:hidden;height:calc(100vh - 56px);max-height:780px;position:sticky;top:28px}
+.ch{background:linear-gradient(90deg,var(--purple),var(--pink));color:#fff;padding:16px 20px}.ch b{font-size:17px;display:block}.ch small{opacity:.9}
+#msgs{flex:1;min-height:0;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#fbf9ff}
+.m{max-width:86%;padding:10px 14px;border-radius:18px;font-size:14px;white-space:pre-line;line-height:1.45}
+.bot{background:#fff;border:1.5px solid var(--purple-l);border-bottom-left-radius:5px;align-self:flex-start}
+.me{background:linear-gradient(90deg,var(--blue),var(--purple));color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.sug{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px 0;background:#fff}
+.sug button{border:1.5px solid var(--pink-l);background:#fff7fb;border-radius:18px;padding:5px 11px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+.sug button:hover{background:var(--pink-l)}
+.cf{display:flex;gap:8px;padding:12px;background:#fff}.cf input{flex:1;padding:10px 14px}.cf .btn{padding:10px 16px;background:var(--pink)}
+</style></head><body>
+<div class="wrap">
+<header><div class="logo"><i>🎯</i><div><h1>TalentSift</h1><div class="sub">Screen hundreds of resumes against a job description in seconds</div></div></div>
+<button class="btn" style="background:#ffffff33" onclick="resetAll()">Start over</button></header>
+<div class="grid">
+<div style="display:grid;gap:22px">
+ <div class="card"><h2><span class="dot" style="background:var(--pink)"></span>Job description</h2>
+  <label>Job title</label><input type="text" id="title" placeholder="e.g. Senior Python Developer">
+  <label>Job description</label><textarea id="jd" placeholder="Paste the full job description - skills, tools, responsibilities..."></textarea>
+  <label>Shortlist threshold: <b id="thv">40</b>% match</label><input type="range" id="thr" min="10" max="90" value="40">
+ </div>
+ <div class="card"><h2><span class="dot" style="background:var(--blue)"></span>Upload resumes</h2>
+  <div class="drop" id="drop"><div style="font-size:34px">📄</div><b>Drop up to 1,000 resumes here</b><small>PDF, DOCX or TXT - or click to browse</small></div>
+  <input type="file" id="fi" multiple accept=".pdf,.docx,.txt" hidden>
+  <input type="file" id="fo" webkitdirectory multiple hidden>
+  <div style="margin-top:10px"><button class="btn b-soft" onclick="fo.click()">Select a whole folder</button></div>
+  <div class="bar" id="bar"><div></div></div><div class="note" id="up"></div>
+  <button class="btn b-main" id="go" onclick="analyze()">Find relevant resumes</button>
+ </div>
+</div>
+<div class="card">
+ <div class="stats"><div class="stat s1"><b id="a1">0</b><span>Resumes uploaded</span></div><div class="stat s2"><b id="a2">0</b><span>Shortlisted</span></div>
+ <div class="stat s3"><b id="a3">0</b><span>Not shortlisted</span></div><div class="stat s4"><b id="a4">0%</b><span>Average match</span></div></div>
+ <h2><span class="dot" style="background:var(--orange)"></span>Ranked candidates</h2>
+ <div class="tools"><input type="text" id="q" placeholder="Search name, skill, email...">
+  <button class="tab on" data-f="all">All</button><button class="tab" data-f="yes">Shortlisted</button><button class="tab" data-f="no">Not shortlisted</button>
+  <a href="/api/export" style="margin-left:auto;text-decoration:none"><span class="btn b-blue" style="display:inline-block;padding:9px 16px;font-size:14px">Download CSV</span></a></div>
+ <div class="tw"><table><thead><tr><th>#</th><th>Candidate</th><th>Match</th><th>Matched skills</th><th>Exp.</th><th>Contact</th><th>Status</th></tr></thead><tbody id="tb">
+ <tr><td colspan="7"><div class="empty"><div>🔍</div>Add a job description, upload resumes and press <b>Find relevant resumes</b>.</div></td></tr></tbody></table></div>
+</div>
+<div id="chat" class="card">
+  <div class="ch"><b>HR Assistant</b><small>Ask about your resumes and the job description</small></div>
+  <div id="msgs"><div class="m bot">Hi! Ask me how many resumes match, who has a skill, or who the top candidates are.</div></div>
+  <div class="sug">
+    <button>How many resumes match?</button>
+    <button>Top 5 candidates</button>
+    <button>Who knows Python?</button>
+    <button>How many resumes uploaded?</button>
+    <button>Who is the most experienced candidate?</button>
+    <button>Average experience of candidates</button>
+    <button>How many resumes have no email?</button>
+    <button>Candidates with more than 5 years experience</button>
+    <button>What are the key skills in the job description?</button>
+    <button>How many resumes do not match?</button>
+  </div>
+  <div class="cf"><input type="text" id="ci" placeholder="Type your question..."><button class="btn" onclick="send()">Send</button></div>
+</div>
+<div class="cf"><input type="text" id="ci" placeholder="Type your question..."><button class="btn" onclick="send()">Send</button></div></div>
+</div></div>
+
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let results=[],thr=40,filt='all',total=0;
+const drop=$('#drop'),fi=$('#fi'),fo=$('#fo'),chat=$('#chat');
+drop.onclick=()=>fi.click();
+['dragover','dragenter'].forEach(e=>drop.addEventListener(e,x=>{x.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,x=>{x.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',async x=>{const en=[...x.dataTransfer.items].map(i=>i.webkitGetAsEntry&&i.webkitGetAsEntry()).filter(Boolean);const fl=[...x.dataTransfer.files];upload(en.length?await walk(en):fl)});
+fi.onchange=()=>upload([...fi.files]);fo.onchange=()=>upload([...fo.files]);
+async function walk(entries){const out=[];
+  async function rec(e,path){if(e.isFile){await new Promise(r=>e.file(f=>{f._path=path+f.name;out.push(f);r()},r))}
+  else{const rd=e.createReader();let b;do{b=await new Promise(r=>rd.readEntries(r,()=>r([])));for(const c of b)await rec(c,path+e.name+'/')}while(b.length)}}
+  for(const e of entries)await rec(e,'');return out}
+async function upload(list){
+  const all=list.length;list=list.filter(f=>/\.(pdf|docx|txt)$/i.test(f.name));
+  if(!list.length)return $('#up').innerHTML=`<span class="err">No PDF, DOCX or TXT files found (${all} items selected).</span>`;
+  const bar=$('#bar');bar.style.display='block';let added=0,dups=0,errs=[];
+  for(let i=0;i<list.length;i+=25){
+    const fd=new FormData();list.slice(i,i+25).forEach(f=>fd.append('files',f,f._path||f.webkitRelativePath||f.name));
+    try{const r=await(await fetch('/api/upload',{method:'POST',body:fd})).json();added+=r.added;dups+=r.dups;errs.push(...r.errors);total=r.total}
+    catch(e){errs.push('Batch '+(i/25+1)+' failed to upload')}
+    const done=Math.min(i+25,list.length);bar.firstChild.style.width=(done/list.length*100)+'%';$('#up').textContent=`Uploading ${done} / ${list.length}...`;
+  }
+  $('#up').innerHTML=`Selected ${list.length} - added <b>${added}</b>`+(dups?`, ${dups} duplicates ignored`:'')+(errs.length?`, <span class="err">${errs.length} skipped</span>`:'')+`. Total ready: <b>${total}</b>.`+(errs.length?`<br><span class="err">${esc(errs.slice(0,3).join(' | '))}</span>`:'');
+  $('#a1').textContent=total;setTimeout(()=>bar.style.display='none',800);
+  fi.value='';fo.value='';
+}
+async function analyze(){
+  const b=$('#go');b.disabled=true;b.textContent='Analyzing...';
+  const r=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:$('#title').value,jd:$('#jd').value,threshold:thr})});
+  const d=await r.json();b.disabled=false;b.textContent='Find relevant resumes';
+  if(d.error)return $('#up').innerHTML=`<span class="err">${esc(d.error)}</span>`;
+  results=d.results;render();
+}
+function render(){
+  const yes=results.filter(r=>r.score>=thr).length;
+  $('#a1').textContent=results.length||total;$('#a2').textContent=yes;$('#a3').textContent=results.length-yes;
+  $('#a4').textContent=results.length?(results.reduce((a,r)=>a+r.score,0)/results.length).toFixed(1)+'%':'0%';
+  const q=$('#q').value.toLowerCase();
+  const rows=results.filter(r=>(filt=='all'||(filt=='yes')==(r.score>=thr))&&(r.name+r.email+r.file+r.matched.join(' ')).toLowerCase().includes(q));
+  $('#tb').innerHTML=rows.length?rows.map(r=>`<tr><td>${r.rank}</td><td><b>${esc(r.name)}</b><br><small style="color:var(--mute)">${esc(r.file)}</small></td>
+  <td><div class="sc"><i><u style="width:${r.score}%"></u></i><b>${r.score}%</b></div></td><td>${r.matched.slice(0,6).map(k=>`<span class="chip">${esc(k)}</span>`).join('')}</td>
+  <td>${r.years?r.years+' yrs':'-'}</td><td>${esc(r.email||'-')}<br><small style="color:var(--mute)">${esc(r.phone)}</small></td>
+  <td><span class="tag ${r.score>=thr?'yes':'no'}">${r.score>=thr?'Shortlisted':'Not shortlisted'}</span></td></tr>`).join(''):
+  '<tr><td colspan="7"><div class="empty"><div>🔍</div>No candidates to show yet.</div></td></tr>';
+}
+$('#thr').oninput=e=>{thr=+e.target.value;$('#thv').textContent=thr;if(results.length)render()};
+$('#thr').onchange=()=>fetch('/api/threshold',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({threshold:thr})});
+$('#q').oninput=render;
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');filt=t.dataset.f;render()});
+async function resetAll(){await fetch('/api/reset',{method:'POST'});results=[];total=0;$('#up').textContent='';render();$('#a1').textContent=0}
+function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;$('#msgs').append(d);$('#msgs').scrollTop=1e9}
+async function send(t){
+  const v=(t||$('#ci').value).trim();if(!v)return;$('#ci').value='';add(v,'me');
+  const r=await(await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:v})})).json();add(r.answer,'bot');
+}
+$('#ci').onkeydown=e=>{if(e.key==='Enter')send()};
+document.querySelectorAll('.sug button').forEach(b=>b.onclick=()=>send(b.textContent));
+</script></body></html>
